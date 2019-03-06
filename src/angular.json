@@ -1,0 +1,169 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "DF-Utils-Lib": {
+      "root": "projects/df-utils-lib",
+      "sourceRoot": "projects/df-utils-lib/src",
+      "projectType": "library",
+      "prefix": "DF",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/df-utils-lib/tsconfig.lib.json",
+            "project": "projects/df-utils-lib/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/df-utils-lib/tsconfig.lib.json",
+              "projects/df-utils-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "DF-tester": {
+      "root": "projects/DF-tester/",
+      "sourceRoot": "projects/DF-tester/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/DF-tester",
+            "index": "projects/DF-tester/src/index.html",
+            "main": "projects/DF-tester/src/main.ts",
+            "polyfills": "projects/DF-tester/src/polyfills.ts",
+            "tsConfig": "projects/DF-tester/tsconfig.app.json",
+            "assets": [
+              "projects/DF-tester/src/favicon.ico",
+              "projects/DF-tester/src/assets"
+            ],
+            "styles": [
+              "projects/DF-tester/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/DF-tester/src/environments/environment.ts",
+                  "with": "projects/DF-tester/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "DF-tester:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "DF-tester:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "DF-tester:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/DF-tester/src/test.ts",
+            "polyfills": "projects/DF-tester/src/polyfills.ts",
+            "tsConfig": "projects/DF-tester/tsconfig.spec.json",
+            "karmaConfig": "projects/DF-tester/karma.conf.js",
+            "styles": [
+              "projects/DF-tester/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/DF-tester/src/favicon.ico",
+              "projects/DF-tester/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/DF-tester/tsconfig.app.json",
+              "projects/DF-tester/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "DF-tester-e2e": {
+      "root": "projects/DF-tester-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/DF-tester-e2e/protractor.conf.js",
+            "devServerTarget": "DF-tester:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "DF-tester:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/DF-tester-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "DF-Utils-Lib"
+}
